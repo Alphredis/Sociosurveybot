@@ -5,18 +5,19 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+import os
 
 #Allgemeine Einstellungen
 url="https://www.soscisurvey.de/Datenkompetenz/" #Zielurl wird für Selenium verwendet
 
-#Selenium Einstellungen
-driver = webdriver.Firefox() #webdriver kann upgedated werden mit - "brew install geckodriver" - muss instaliert sein - Brew geht nur bei installiertem homebrew
-driver.get(url) #Selenium driver bekommt zielurl zum aufruf
+
 
 #Funktionen
 #1. Seite - Anmeldung
 def anmeldung():
-
+    # Selenium Einstellungen
+    driver = webdriver.Firefox()  # webdriver kann upgedated werden mit - "brew install geckodriver" - muss instaliert sein - Brew geht nur bei installiertem homebrew
+    driver.get(url)  # Selenium driver bekommt zielurl zum aufruf
     try:
         WebDriverWait(driver, 5).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, "#A001_01"))).click()
@@ -120,9 +121,18 @@ def anmeldung():
     except:
         print("Could not finish page 3")
     pass
+    driver.close()
 
 # Ausführung der Funktionen evtl. Loop
-anmeldung()
+
+i = 1
+while i < 6:
+    anmeldung()
+    #os.system('cls')
+    print("Runde:", i)
+    i += 1
+
+
 print("Done")
 
 
